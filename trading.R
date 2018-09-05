@@ -24,7 +24,7 @@ stock <- c("MSFT", "AMD", "DG", "FB", "TSLA", "WTI", "SPLK", "AAPL", "TSM", "CAT
            "BAC", "BABA", "GE", "NVDA", "AVGO", "MTN", "HD", "INTC", "CMCSA", "EMTY",
            "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX", "MIME", "WIX",
            "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", "INTU", "CRM", "SHOP", 
-           "TDOC", "SQ", "TTD", "CGC", "TLRY", "CRON", "TLRY", "MJ", "ACBFF")
+           "TDOC", "SQ", "TTD", "CGC", "TLRY", "CRON", "TLRY", "MJ", "ACBFF", "HQY", "PYPL", "LOGM")
 
 getSymbols(stock, src='yahoo',
            from = as.Date(start), to = as.Date(end))
@@ -63,7 +63,8 @@ datasets <- list(MSFT$MSFT.Close, AMD$AMD.Close, DG$DG.Close, FB$FB.Close, TSLA$
                  MIME$MIME.Close, WIX$WIX.Close, TEAM$TEAM.Close, HUBS$HUBS.Close, INST$INST.Close, 
                  NOW$NOW.Close, ZEN$ZEN.Close, APPF$APPF.Close, SD$SD.Close, INTU$INTU.Close, 
                  CRM$CRM.Close, SHOP$SHOP.Close, TDOC$TDOC.Close, SQ$SQ.Close, TTD$TTD.Close, CGC$CGC.Close, 
-                 CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close)
+                 CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close, HQY$HQY.Close,
+                 PYPL$PYPL.Close, LOGM$LOGM.Close)
 
 datasetsOpen <- list(MSFT$MSFT.Open, AMD$AMD.Open, DG$DG.Open, FB$FB.Open, TSLA$TSLA.Open, 
                  SPLK$SPLK.Open, AAPL$AAPL.Open, TSM$TSM.Open, CAT$CAT.Open,
@@ -76,7 +77,8 @@ datasetsOpen <- list(MSFT$MSFT.Open, AMD$AMD.Open, DG$DG.Open, FB$FB.Open, TSLA$
                  MIME$MIME.Open, WIX$WIX.Open, TEAM$TEAM.Open, HUBS$HUBS.Close, INST$INST.Close, 
                  NOW$NOW.Close, ZEN$ZEN.Close, APPF$APPF.Close, SD$SD.Close, INTU$INTU.Close, 
                  CRM$CRM.Close, SHOP$SHOP.Close, TDOC$TDOC.Close, SQ$SQ.Close, TTD$TTD.Close, 
-                 CGC$CGC.CLose, CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close)
+                 CGC$CGC.CLose, CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close, 
+                 HQY$HQY.Close, PYPL$PYPL.Close, LOGM$LOGM.Close)
                  
 
 names(datasets) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "CAT",
@@ -84,14 +86,16 @@ names(datasets) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "
                      "BAC", "BABA", "GE", "NVDA", "AVGO", "MTN", "HD", "INTC", "CMCSA",
                      "EMTY", "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX",
                      "MIME", "WIX", "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", 
-                     "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ", "ACBFF")
+                     "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ",
+                     "ACBFF", "HQY", "PYPL", "LOGM")
 
 names(datasetsOpen) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "CAT",
                      "NFLX", "GOOGL", "AMZN", "SOXL", "TWTR", "DIS", "GPRO", "F", "SBUX",
                      "BAC", "BABA", "GE", "NVDA", "AVGO", "MTN", "HD", "INTC", "CMCSA",
                      "EMTY", "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX",
                      "MIME", "WIX", "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", 
-                     "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ", "ACBFF")
+                     "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ", 
+                     "ACBFF", "HQY", "PYPL", "LOGM")
 
 Buy <- data.frame(Stock=(character()),
                  stringsAsFactors=FALSE)
@@ -242,3 +246,84 @@ for (row in 1:nrow(SPLK$macd)) {
                 "the stock price was", price))
   }
 }
+
+
+pltList <- list()
+
+for( i in 2:15 ){
+  
+  # Get data, perform analysis, ect.
+  
+  # Create plot name.
+  pltName <- paste( 'a', i, sep = '' )
+  
+  # Store a plot in the list using the name as an index.
+  # Note that the plotting function used must return an *object*.
+  # Functions from the `graphics` package, such as `plot`, do not return objects.
+  pltList[[ pltName ]] <- makeplots(datasets)
+  
+}
+
+MTN$MACD = MACD(MTN$MTN.Close, nFast=5, nSlow=20,nSig=1,maType=EMA, percent = FALSE)
+
+for (row in 1:nrow(MTN)) {
+  if (MTN$MACD > 0) {
+    return(MTN$MTN.Close)
+  }
+}
+
+for(i in 1:nrow(MTN)){
+  if(MTN[i,8] > 0 & !is.na(MTN[i,8])){
+    MTN$Try <<- MTN[i,-1]
+  } else {
+    MTN$Try <<- as.character("nope")
+  }
+}
+ 
+MTN$MACD[(MTN$MACD > 0) & (MTN$MACD[,-1] < 0)]
+
+MTN$x1[MTN$MACD > 0 & MTN$MACD[-1] < 0] <- "YEA"
+
+for(i in MTN$MACD){
+  if (MTN$MACD > 0 & MTN$MACD[-1] < 0) {
+  print(paste("buy", i))
+  } else {
+    print(paste("crap", i))
+  }
+}
+    
+
+if (as.numeric(MTN$MACD[nrow(SPLK$SPLK.Close),1]) > 0 & as.numeric(macdSPLK[((nrow(SPLK$SPLK.Close)) - 1), 1]) < 0)
+if MTN$MACD > 0 & MTN$MACD[-1]?
+MTN$x1 <- diff(MTN$MTN.Close)
+
+if (as.numeric(macd[nrow(MTN$MTN.Close),1]) > 0 & as.numeric(macd[((nrow()) - 1), 1]) < 0) {
+  temp <- data.frame(names(data))
+  Buy <<- rbind(Buy, temp)
+  
+  
+if (MTN$MACD > 0  & lag(MTN$MACD, 1) < 0) {
+  print(paste(MTN$MACD, "ya"))
+}
+  
+  
+MTN$MACD <- MTN$MACD(NA = FALSE) 
+ 
+
+
+MTN$purchase <- (MTN$MACD > 0  & lag(MTN$MACD, 1) < 0)
+
+MTN$sell <- MTN$MACD < 0  & lag(MTN$MACD, 1) > 0
+
+MTN$purchase[is.na(MTN$purchase)] <- 0
+
+MTN$sell[is.na(MTN$sell)] <- 0
+
+
+ifelse (MTN$purchase > 0, price$purchase <- MTN$MTN.Close, NA)
+price <- filter(MTN, MTN$purchas
+  print(pa
+  MTN$MTN.Close - 
+~ tail(MTN$MTN.Close,5)
+lm(MTN[1] ~ MTN$MTN.Close)
+  
