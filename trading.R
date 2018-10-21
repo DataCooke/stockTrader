@@ -203,4 +203,93 @@ Slopes <- data.frame(Slopes=(character()), Stock=(character()), Price=(numeric()
 Slopes$y2 <- Slopes$Slopes + Slopes$Price
 Slopes$Change <- ((Slopes$y2-Slopes$Price)/Slopes$Price)*100
 Slopes <- Slopes[order(-Slopes$Change),]
+Slopes$Change <- round(Slopes$Change, digits = 2)
+
+backtesting <- data.frame(Performance=(numeric()),Stock=(character()), stringsAsFactors=FALSE)
+
+backtest <- function(data) {
+  
+  test = MACD(data, nFast=5, nSlow=20,nSig=1,maType=EMA, percent = FALSE)
+  new <- cbind(data, test)
+  library(data.table)
+  new <- data.table(new)
+  new <- na.omit(new)
+  
+  new$action<- ifelse(new$macd > 0 & shift(new$macd) < 0,"buy","sell")
+  new$action<- ifelse(new$macd < 0 & shift(new$macd) > 0 | new$macd > 0 & 
+                        shift(new$macd) < 0,paste(new$action,""),1)
+  
+  lastprice <- data.frame(tapply(seq_along(new$action), new$action, max))
+  if (lastprice["buy",1] > lastprice["sell",1]) new$action[nrow(new)] <- "sell"
+  
+  new <- dplyr::filter(new, grepl("buy|sell",new$action))
+  new$math <- ifelse(new$action == "buy", new$AMD.Close - shift(new$AMD.Close), 21)
+  
+  new$math <- ifelse(grepl("sell", new$action), (new[,4] - shift(new[,4]))/new[,4]*100, "")
+  new$math <- as.numeric(new$math)
+  Performance <- data.frame(sum(new$math, na.rm = TRUE))
+  Performance$Stock <- NA
+  colnames(Performance) <- c("Performance", "Stock")
+  Performance$Stock <- names(data)
+  backtesting <- data.frame(Performance=(numeric()),Stock=(character()), stringsAsFactors=FALSE)
+  backtesting <<- rbind(backtesting, Performance)
+  
+}
+
+lapply(duh, backtest)
+
+duh <- list(
+
+
+
+
+
+
+backtest <- function(data) {
+
+test = MACD(TLRY$TLRY.Close, nFast=5, nSlow=20,nSig=1,maType=EMA, percent = FALSE)
+new <- cbind(TLRY, test)
+library(data.table)
+new <- data.table(new)
+new <- na.omit(new)
+
+new$action<- ifelse(new$macd > 0 & shift(new$macd) < 0,"buy","sell")
+new$action<- ifelse(new$macd < 0 & shift(new$macd) > 0 | new$macd > 0 & 
+                      shift(new$macd) < 0,paste(new$action,""),1)
+
+lastprice <- data.frame(tapply(seq_along(new$action), new$action, max))
+if (lastprice["buy",1] > lastprice["sell",1]) new$action[nrow(new)] <- "sell"
+  
+new <- dplyr::filter(new, grepl("buy|sell",new$action))
+#new$math <- ifelse(new$action == "buy", new$AMD.Close - shift(new$AMD.Close), 21)
+
+new$math <- ifelse(grepl("sell", new$action), (new[,4] - shift(new[,4]))/new[,4]*100, "")
+new$math <- as.numeric(new$math)
+Performance <- data.frame(sum(new$math, na.rm = TRUE))
+Performance$Stock <- NA
+colnames(Performance) <- c("Performance", "Stock")
+Performance$Stock <- names(TLRY$TLRY.Close)
+backtesting <- data.frame(Performance=(numeric()),Stock=(character()), stringsAsFactors=FALSE)
+backtesting <<- rbind(backtesting, Performance)
+
+}
+
+
+
+if (as.numeric(new$macd) > 0 & shift(new$macd) < 0) {
+  yo
+} 
+
+else if (new$macd < 0 & shift(new$macd) > 0) {
+  new$action <<- "sell"
+} else {
+  new$action <<- "nope"
+}
+new[, ya := macd + shift(macd)]
+
+
+new[, try := 1]
+DT[ , D := C + shift(B)]
+
+
  
