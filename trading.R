@@ -24,8 +24,9 @@ stock <- c("MSFT", "AMD", "DG", "FB", "TSLA", "WTI", "SPLK", "AAPL", "TSM", "CAT
            "BAC", "BABA", "GE", "NVDA", "AVGO", "MTN", "HD", "INTC", "CMCSA", "EMTY",
            "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX", "MIME", "WIX",
            "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", "INTU", "CRM", "SHOP", 
-           "TDOC", "SQ", "TTD", "CGC", "TLRY", "CRON", "TLRY", "MJ", "ACBFF", "HQY", 
-           "PYPL", "LOGM", "NIO", "SVMK")
+           "TDOC", "SQ", "TTD", "CGC", "TLRY", "CRON", "TLRY", "MJ", "HQY", 
+           "PYPL", "LOGM", "NIO", "SVMK", "TWLO", "ETSY", "ROKU", "DBX", "TECS",
+           "TZA", "SPXS", "SOXS")
 
 getSymbols(stock, src='yahoo',
            from = as.Date(start), to = as.Date(end))
@@ -65,8 +66,10 @@ datasets <- list(MSFT$MSFT.Close, AMD$AMD.Close, DG$DG.Close, FB$FB.Close, TSLA$
                  MIME$MIME.Close, WIX$WIX.Close, TEAM$TEAM.Close, HUBS$HUBS.Close, INST$INST.Close, 
                  NOW$NOW.Close, ZEN$ZEN.Close, APPF$APPF.Close, SD$SD.Close, INTU$INTU.Close, 
                  CRM$CRM.Close, SHOP$SHOP.Close, TDOC$TDOC.Close, SQ$SQ.Close, TTD$TTD.Close, CGC$CGC.Close, 
-                 CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close, HQY$HQY.Close,
-                 PYPL$PYPL.Close, LOGM$LOGM.Close, NIO$NIO.Close, SVMK$SVMK.Close)
+                 CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, HQY$HQY.Close,
+                 PYPL$PYPL.Close, LOGM$LOGM.Close, NIO$NIO.Close, SVMK$SVMK.Close, 
+                 TWLO$TWLO.Close, ETSY$ETSY.Close, ROKU$ROKU.Close, DBX$DBX.Close, TECS$TECS.Close,
+                 TZA$TZA.Close, SPXS$SPXS.Close, SOXS$SOXS.Close)
 
 datasetsOpen <- list(MSFT$MSFT.Open, AMD$AMD.Open, DG$DG.Open, FB$FB.Open, TSLA$TSLA.Open, 
                      SPLK$SPLK.Open, AAPL$AAPL.Open, TSM$TSM.Open, CAT$CAT.Open,
@@ -79,8 +82,10 @@ datasetsOpen <- list(MSFT$MSFT.Open, AMD$AMD.Open, DG$DG.Open, FB$FB.Open, TSLA$
                      MIME$MIME.Open, WIX$WIX.Open, TEAM$TEAM.Open, HUBS$HUBS.Close, INST$INST.Close, 
                      NOW$NOW.Close, ZEN$ZEN.Close, APPF$APPF.Close, SD$SD.Close, INTU$INTU.Close, 
                      CRM$CRM.Close, SHOP$SHOP.Close, TDOC$TDOC.Close, SQ$SQ.Close, TTD$TTD.Close, 
-                     CGC$CGC.CLose, CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, ACBFF$ACBFF.Close, 
-                     HQY$HQY.Close, PYPL$PYPL.Close, LOGM$LOGM.Close, NIO$NIO.Close, SVMK$SVMK.Close)
+                     CGC$CGC.CLose, CRON$CRON.Close, TLRY$TLRY.Close, MJ$MJ.Close, 
+                     HQY$HQY.Close, PYPL$PYPL.Close, LOGM$LOGM.Close, NIO$NIO.Close, SVMK$SVMK.Close,
+                     TWLO$TWLO.Close, ETSY$ETSY.Close, ROKU$ROKU.Close, DBX$DBX.Close, TECS$TECS.Close,
+                     TZA$TZA.Close, SPXS$SPXS.Close, SOXS$SOXS.Close)
 
 
 names(datasets) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "CAT",
@@ -89,7 +94,8 @@ names(datasets) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "
                      "EMTY", "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX",
                      "MIME", "WIX", "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", 
                      "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ",
-                     "ACBFF", "HQY", "PYPL", "LOGM", "NIO", "SVMK")
+                     "HQY", "PYPL", "LOGM", "NIO", "SVMK", "TWLO", "ETSY", "ROKU", "DBX", "TECS",
+                     "TZA", "SPXS", "SOXS")
 
 names(datasetsOpen) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM", "CAT",
                          "NFLX", "GOOGL", "AMZN", "SOXL", "TWTR", "DIS", "GPRO", "F", "SBUX",
@@ -97,7 +103,8 @@ names(datasetsOpen) <- c("MSFT", "AMD", "DG", "FB", "TSLA", "SPLK", "AAPL", "TSM
                          "EMTY", "CLIX", "NAIL", "VSLR", "AIEQ", "BOTZ", "ROBO", "SGOL", "ABX",
                          "MIME", "WIX", "TEAM", "HUBS", "INST", "NOW", "ZEN", "APPF", "SD", 
                          "INTU", "CRM", "SHOP", "TDOC", "SQ", "TTD", "CGC", "CRON", "TLRY", "MJ", 
-                         "ACBFF", "HQY", "PYPL", "LOGM", "NIO", "SVMK")
+                         "HQY", "PYPL", "LOGM", "NIO", "SVMK", "TWLO", "ETSY", "ROKU", "DBX", "TECS",
+                         "TZA", "SPXS", "SOXS")
  
 Buy <- data.frame(Stock=(character()), stringsAsFactors=FALSE)
 Sell <- data.frame(Stock=(character()), stringsAsFactors=FALSE) 
